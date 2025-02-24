@@ -61,6 +61,16 @@ const userApi = baseApi.injectEndpoints({
             },
 
         }),
+        dashboardData: build.query({
+            query: () => {
+                return {
+                    url: "/dashboard",
+                    method: "GET",
+                 
+                }
+            },
+
+        }),
 
     
         
@@ -70,4 +80,4 @@ const userApi = baseApi.injectEndpoints({
 })
 
 
-export const { useLoginUserMutation, useForgotUserMutation, useOtpUserMutation, useResetPassMutation} = userApi
+export const { useLoginUserMutation, useForgotUserMutation, useOtpUserMutation, useResetPassMutation,useDashboardDataQuery} = userApi

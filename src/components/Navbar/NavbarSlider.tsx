@@ -20,11 +20,11 @@ interface SidebarProps {
 const navigation = [
   { label: "Dashboard", route: "/", icon: <MdDashboard size={20} /> },
   { label: "Applications", route: "/application", icon: <FaBox size={20} /> },
-  // { label: "Category", route: "/category", icon: <FaTags size={20} /> },
-  // { label: "Brand", route: "/brand", icon: <FaBuilding size={20} /> },
-  // { label: "Blog", route: "/blog", icon: <FaBlogger size={20} /> },
+  { label: "Batch", route: "/batch", icon: <FaTags size={20} /> },
+  { label: "Course", route: "/course", icon: <FaBuilding size={20} /> },
+  { label: "Student", route: "/student", icon: <FaBlogger size={20} /> },
   // { label: "Benchmark", route: "/benchmark", icon: <FaChartBar size={20} /> },
-  // { label: "Contact", route: "/contact", icon: <FaChartBar size={20} /> },
+
 ];
 
 const NavbarSlider = ({ isOpen, toggleSidebar }: SidebarProps) => {

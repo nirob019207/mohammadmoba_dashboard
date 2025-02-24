@@ -24,3 +24,44 @@ export interface User {
     updated_at: string;
   }
   
+
+  export type Batch = {
+    id: number;
+    title: string;
+    subtitle: string;
+    batch_image: string;
+    created_at: string;
+    updated_at: string;
+  };
+  
+
+  export interface Course {
+    id: number;
+    name: string;
+    description: string;
+    course_image: string;
+    professor_id: number;
+    status: string;
+    created_at: string;
+    updated_at: string;
+  }
+  
+
+  export type Student = {
+    id: number;
+    profile_picture: string;
+    first_name: string;
+    last_name: string;
+    email: string;
+    phone_number: string;
+    address: string;
+    postal_code: string;
+    employee_id: string;
+    blood_group: string;
+    gender: string;
+    user_status: string;
+    description: string;
+    created_at: string;
+    updated_at: string;
+  };
+  
