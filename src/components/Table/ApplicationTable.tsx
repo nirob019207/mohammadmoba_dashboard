@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { User } from "@/types/interface";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Check, X } from "lucide-react";
 import Image from "next/image";
+import {
+  useAppApproveMutation,
+  useAppRejectMutation,
+} from "@/Redux/Api/applicationApi";
+import { toast } from "sonner";
 
 interface ApplicationTableProps {
   application: User[];
@@ -19,6 +24,8 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({
   const [selectedApplication, setSelectedApplication] = useState<User | null>(
     null
   );
+  const [approve] = useAppApproveMutation();
+  const [reject] = useAppRejectMutation();
 
   const totalPages = Math.ceil(application?.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -33,6 +40,39 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({
 
   const closeModal = () => {
     setSelectedApplication(null);
+  };
+
+  // Handler for Approve action (customize as needed)
+   // Handler for Approve action
+   const handleApprove = async (app: User) => {
+    if (!app || !app.id) {
+      toast.error("Invalid application data!");
+      return;
+    }
+
+    try {
+      await approve({ status: "approved", id: app.id }).unwrap();
+      toast.success("Application approved successfully!");
+    } catch (error) {
+      toast.error("Failed to approve application!");
+      console.error("Approve Error:", error);
+    }
+  };
+
+  // Handler for Reject action
+  const handleReject = async (app: User) => {
+    if (!app || !app.id) {
+      toast.error("Invalid application data!");
+      return;
+    }
+
+    try {
+      await reject({ status: "rejected", id: app.id }).unwrap();
+      toast.success("Application rejected successfully!");
+    } catch (error) {
+      toast.error("Failed to reject application!");
+      console.error("Reject Error:", error);
+    }
   };
 
   const formatDate = (dateStr: string) =>
@@ -60,7 +100,7 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({
                     Email
                   </th>
                   <th className="p-4 text-left text-sm font-medium text-gray-700">
-                    Status
+                    Apllication Status
                   </th>
                   <th className="p-4 text-left text-sm font-medium text-gray-700">
                     Actions
@@ -82,14 +122,15 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({
                     <td className="p-4 text-sm">{app.email}</td>
                     <td className="p-4">
                       <span className="text-emerald-600 text-sm font-medium">
-                        Published
+                        {app.application_status}{" "}
                       </span>
                     </td>
                     <td className="p-4">
                       <div className="flex items-center gap-2">
+                        {/* View Details Button */}
                         <button
                           onClick={() => openModal(app)}
-                          className="text-gray-600 hover:text-gray-700"
+                          className="flex items-center gap-1 px-2 py-1 bg-slate-500 text-white rounded hover:bg-red-600 transition-colors"
                         >
                           <svg
                             className="w-4 h-4"
@@ -110,6 +151,20 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({
                               d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
                             />
                           </svg>
+                        </button>
+                        {/* Approve Button */}
+                        <button
+                          onClick={() => handleApprove(app)}
+                          className="flex items-center gap-1 px-2 py-1 bg-green-500 text-white rounded hover:bg-green-600 transition-colors"
+                        >
+                          <Check className="w-3 h-4" />
+                        </button>
+                        {/* Reject Button */}
+                        <button
+                          onClick={() => handleReject(app)}
+                          className="flex items-center gap-1 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
+                        >
+                          <X className="w-3 h-4" />
                         </button>
                       </div>
                     </td>
@@ -233,15 +288,12 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({
               <div>{selectedApplication.responsibilities}</div>
 
               <div className="font-medium">Passport Path:</div>
-
               <div>
                 <Image
                   height={33}
                   width={44}
-                  src={`${
-                    process.env.NEXT_PUBLIC_STORAGE
-                  }/${selectedApplication.passport_path.trimEnd()}`}
-                  alt="dkfd"
+                  src={`${process.env.NEXT_PUBLIC_STORAGE}/${selectedApplication.passport_path}`}
+                  alt="Passport"
                   className="w-10 h-10"
                 />
               </div>
@@ -250,10 +302,8 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({
               <Image
                 height={33}
                 width={44}
-                src={`${
-                  process.env.NEXT_PUBLIC_STORAGE
-                }/${selectedApplication.nid_path.trimEnd()}`}
-                alt="dkfd"
+                src={`${process.env.NEXT_PUBLIC_STORAGE}/${selectedApplication.nid_path}`}
+                alt="NID"
               />
 
               <div className="font-medium">Application Status:</div>

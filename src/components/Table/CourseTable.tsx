@@ -76,7 +76,7 @@ const CourseTable: React.FC<CourseType> = ({ course, isLoading, serial }) => {
                   <td className="p-4">
                     <div className="flex items-center gap-2">
                       {/* Existing action button */}
-                      <button className="text-green-600 hover:text-gray">
+                      <button className="text-green-600 hover:text-gray"  onClick={() => setCourseToDelete(item.id)}>
                         <Edit className="w-4 h-4"/>
                       </button>
 

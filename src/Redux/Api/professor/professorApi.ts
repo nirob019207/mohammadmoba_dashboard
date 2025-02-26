@@ -1,36 +1,31 @@
 import baseApi from "../baseApi";
 
 
-const appliApi = baseApi.injectEndpoints({
+const professorApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    getBatch: build.query({
+    getProffesor: build.query({
       query: () => ({
-        url: `/batches`,
+        url: `/professors`,
         method: "GET",
       }),
-      providesTags:["batch"]
+      providesTags:["professor"]
     }),
-    deleteBatch: build.mutation({
+    deleteprofesor: build.mutation({
       query: (id) => ({
-        url: `/batches/${id}`,
+        url: `/professors/${id}`,
         method: "DELETE",
       }),
       invalidatesTags:["batch"]
     }),
-
     storebatch: build.mutation({
       query: (data) => ({
         url: `/batches`,
         method: "POST",
-        headers: {
-          "Content-Type": "application/json", // Set content type to application/json
-        },
-        body: data,
+        body:data
+        
       }),
-      invalidatesTags: ["batch"],
+      invalidatesTags:["batch"]
     }),
-    
-    
     // updbatch: build.mutation({
     //   query: (data) => ({
     //     url: `/batches/${id}`,
@@ -43,4 +38,4 @@ const appliApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetBatchQuery,useDeleteBatchMutation,useStorebatchMutation } = appliApi;
+export const { useGetProffesorQuery } = professorApi;

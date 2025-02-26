@@ -64,4 +64,22 @@ export interface User {
     created_at: string;
     updated_at: string;
   };
-  
+ export  type Professor = {
+    id: number;
+    user_id: number;
+    first_name: string;
+    last_name: string;
+    email_address: string;
+    phone_number: string;
+    designation: string;
+    address: string;
+    postal_code: string;
+    employee_id: string;
+    blood_group: string;
+    gender: string;
+    user_status: string;
+    description: string;
+    profile_picture: string | null;
+    created_at: string; // ISO 8601 string format
+    updated_at: string; // ISO 8601 string format
+  };
