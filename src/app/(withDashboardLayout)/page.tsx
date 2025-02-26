@@ -1,11 +1,11 @@
-import DashboardOverview from "@/components/Dashboard/DashboardOverview";
-import Topbar from "@/components/Navbar/Topbar";
+// import DashboardOverview from "@/components/Dashboard/DashboardOverview";
+import ProfessorDashboard from "@/components/Dashboard/ProfessorDashboard";
 
 export default function Page() {
-    return (
-        <div className="w-full">
-           
-            <DashboardOverview />
-        </div>
-    );
+  return (
+    <div className="w-full">
+      {/* <DashboardOverview /> */}
+      <ProfessorDashboard />
+    </div>
+  );
 }
