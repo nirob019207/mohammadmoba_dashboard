@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar/Navbar";
 import Topbar from "@/components/Navbar/Topbar";
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: {  children: React.ReactNode }) {
   return (
     <main className="flex h-screen">
       <Navbar />

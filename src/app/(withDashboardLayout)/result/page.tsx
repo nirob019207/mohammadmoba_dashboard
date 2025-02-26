@@ -1,10 +1,10 @@
-import AddBatch from '@/components/batch/AddBatch'
+import Result from '@/components/result/Result'
 import React from 'react'
 
 export default function page() {
   return (
     <div>
-        <AddBatch/>
+        <Result/>
     </div>
   )
 }

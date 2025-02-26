@@ -83,3 +83,29 @@ export interface User {
     created_at: string; // ISO 8601 string format
     updated_at: string; // ISO 8601 string format
   };
+
+  export type Result={
+   
+      id: number;
+      profile_picture: string | null;
+      first_name: string;
+      last_name: string;
+      email: string;
+      phone_number: string;
+      address: string;
+      postal_code: string | null;
+      student_id: string;
+      blood_group: string | null;
+      gender: string;
+      user_status: string;
+      description: string;
+      batch_id: number;
+      topic: string | null;
+      course_id: string | null;
+      created_at: string;
+      updated_at: string;
+      user_id: number;
+      results: any[]; 
+ 
+
+  }

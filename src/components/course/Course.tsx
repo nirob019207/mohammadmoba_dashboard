@@ -10,12 +10,10 @@ const Course = () => {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
 
-  const courseData = data?.data?.course?.data || [];
+  const courseData = data?.data?.courses?.data || [];
+  console.log(courseData)
 
-  // Filter the batch data by title (or any other property you choose)
-  const filteredCourseData = courseData.filter((batch:any) =>
-    batch.title?.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+
 
   const handleAdd = () => {
     router.push("add_course");
@@ -51,7 +49,7 @@ const Course = () => {
 
       <div className="flex justify-between mb-5">
         <div className="w-full">
-          <CourseTable course={filteredCourseData} isLoading={isLoading} serial={1} />
+          <CourseTable course={courseData} isLoading={isLoading} serial={1} />
         </div>
       </div>
     </div>

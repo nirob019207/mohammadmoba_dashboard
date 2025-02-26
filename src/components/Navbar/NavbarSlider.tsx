@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { MdDashboard } from "react-icons/md";
+import { MdBookmarks, MdDashboard } from "react-icons/md";
 import { FaBox, FaTags, FaBuilding, FaBlogger, FaChartBar } from "react-icons/fa6";
 import { useDispatch } from "react-redux";
 import { logOut } from "@/Redux/ReduxFunction";
@@ -23,7 +23,9 @@ const navigation = [
   { label: "Batch", route: "/batch", icon: <FaTags size={20} /> },
   { label: "Course", route: "/course", icon: <FaBuilding size={20} /> },
   { label: "Student", route: "/student", icon: <FaBlogger size={20} /> },
-  // { label: "Benchmark", route: "/benchmark", icon: <FaChartBar size={20} /> },
+  { label: "My Course", route: "/mycourse", icon: <FaChartBar size={20} /> },
+  { label: "Result", route: "/result", icon: <MdBookmarks size={20} /> },
+
 
 ];
 

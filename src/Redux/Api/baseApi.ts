@@ -15,7 +15,7 @@ export const baseApi = createApi({
     },
   }),
   endpoints: () => ({}),
-  tagTypes: ["logIn","applications","batch","professor"],
+  tagTypes: ["logIn","applications","batch","professor","student","Course","mate","result"],
 });
 
 export default baseApi;
