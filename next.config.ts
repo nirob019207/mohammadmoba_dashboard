@@ -5,9 +5,8 @@ const nextConfig: NextConfig = {
 };
 module.exports = {
   images: {
-    domains: ['10.0.10.59'],
+    domains: ["10.0.10.59", "img.freepik.com"],
   },
 };
-
 
 export default nextConfig;
