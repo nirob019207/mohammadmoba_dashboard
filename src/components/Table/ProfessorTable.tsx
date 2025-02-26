@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { ChevronLeft, ChevronRight, Edit, Trash } from "lucide-react";
 import Image from "next/image";
 import { useDeleteProfessorMutation } from "@/Redux/Api/professor/professorApi";
-import { TProfessor } from "@/types/interface";
 import { formatDate } from "@/utils/FormatDate";
+import { Professor } from "@/types/interface";
 
 interface StudentType {
-  professors: TProfessor[];
+  professors: Professor[];
   isLoading: boolean;
   serial: number;
 }
@@ -79,7 +79,7 @@ const ProfessorTable: React.FC<StudentType> = ({
               </tr>
             </thead>
             <tbody className="bg-white">
-              {paginatedData?.map((item: TProfessor, index: number) => (
+              {paginatedData?.map((item: Professor, index: number) => (
                 <tr
                   key={item.id}
                   className="border-b border-gray-100 hover:bg-gray-50"
