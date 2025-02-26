@@ -8,6 +8,8 @@ const courseApi = baseApi.injectEndpoints({
         url: `/students`,
         method: "GET",
       }),
+      providesTags: ["student"],
+
     }),
     deleteStudent: build.mutation({
       query: (id) => ({
@@ -15,7 +17,26 @@ const courseApi = baseApi.injectEndpoints({
         method: "DELETE",
       }),
     }),
+    storestudnet: build.mutation({
+      query: ({id,data}) => ({
+        url: `students/update/${id}`,
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json", // Set content type to application/json
+        },
+        body: data,
+      }),
+      invalidatesTags: ["student"],
+    }),
+    getSingStudent: build.query({
+      query: (id) => ({
+        url: `/students/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["student"],
+
+    }),
   }),
 });
 
-export const { useGetStudentQuery,useDeleteStudentMutation } = courseApi;
+export const { useGetStudentQuery,useDeleteStudentMutation,useStorestudnetMutation,useGetSingStudentQuery } = courseApi;

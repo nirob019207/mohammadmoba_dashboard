@@ -7,8 +7,28 @@ const appliApi = baseApi.injectEndpoints({
         url: `/applications`,
         method: "GET",
       }),
+      providesTags:["applications"]
+    }),
+    appApprove: build.mutation({
+      query: ({ status, id }) => ({
+        url: `/applications/${id}/approve-or-reject`,
+        method: "POST",
+        body: { status },
+      }),
+      invalidatesTags:["applications"]
+
+
+    }),
+    
+    appReject: build.mutation({
+      query: ({ status, id }) => ({
+        url: `/applications/${id}/approve-or-reject`,
+        method: "POST",
+        body: { status },
+      }),
+      invalidatesTags:["applications"]
     }),
   }),
 });
 
-export const { useApplicationQuery } = appliApi;
+export const { useApplicationQuery,useAppApproveMutation,useAppRejectMutation } = appliApi;

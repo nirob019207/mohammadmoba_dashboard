@@ -64,13 +64,13 @@ const BatchTable: React.FC<BatchType> = ({ batch, isLoading, serial }) => {
                 <tr key={item.id} className="border-b border-gray-100 hover:bg-gray-50">
                   <td className="p-4 text-sm">{serial + startIndex + index}</td>
                   <td className="p-4 text-sm">
-                    <Image
+                    {/* <Image
                       height={33}
                       width={44}
                       src={`${process.env.NEXT_PUBLIC_STORAGE}/${item.batch_image.trimEnd()}`}
                       alt={item.title}
                       className="w-10 h-10"
-                    />
+                    /> */}
                   </td>
                   <td className="p-4 text-sm">{item.title}</td>
                   <td className="p-4 text-sm">{item.subtitle}</td>

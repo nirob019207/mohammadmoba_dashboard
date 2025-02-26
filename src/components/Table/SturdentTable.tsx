@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { ChevronLeft, ChevronRight, Edit, Trash } from "lucide-react";
-import Image from "next/image";
 import {   Student } from "@/types/interface";
 import { useDeleteStudentMutation } from "@/Redux/Api/student/studentApi";
 
@@ -44,9 +43,7 @@ const StudentTable: React.FC<StudentType> = ({ student, isLoading, serial }) => 
             <thead>
               <tr className="bg-[#E6F0FF]">
                 <th className="p-4 text-left text-sm font-medium text-gray-700">#</th>
-                <th className="p-4 text-left text-sm font-medium text-gray-700">
-                  Course Image
-                </th>
+                
                 <th className="p-4 text-left text-sm font-medium text-gray-700">
                   Name
                 </th>
@@ -62,23 +59,13 @@ const StudentTable: React.FC<StudentType> = ({ student, isLoading, serial }) => 
               {paginatedData?.map((item: any, index) => (
                 <tr key={item.id} className="border-b border-gray-100 hover:bg-gray-50">
                   <td className="p-4 text-sm">{serial + startIndex + index}</td>
-                  <td className="p-4 text-sm">
-                    <Image
-                      height={33}
-                      width={44}
-                      src={`${process.env.NEXT_PUBLIC_STORAGE}/${item.course_image.trimEnd()}`}
-                      alt={item.title}
-                      className="w-10 h-10"
-                    />
-                  </td>
-                  <td className="p-4 text-sm">{item.name}</td>
+              
+                  <td className="p-4 text-sm">{item.first_name+" "+item.last_name}</td>
                   <td className="p-4 text-sm">{item.description}</td>
                   <td className="p-4">
                     <div className="flex items-center gap-2">
                       {/* Existing action button */}
-                      <button className="text-green-600 hover:text-gray">
-                        <Edit className="w-4 h-4"/>
-                      </button>
+                     
 
                       {/* Delete action button opens modal */}
                       <button

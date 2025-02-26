@@ -61,8 +61,7 @@ export type Student = {
   created_at: string;
   updated_at: string;
 };
-
-export interface TProfessor {
+export type Professor = {
   id: number;
   user_id: number;
   first_name: string;
@@ -78,25 +77,29 @@ export interface TProfessor {
   user_status: string;
   description: string;
   profile_picture: string | null;
+  created_at: string; // ISO 8601 string format
+  updated_at: string; // ISO 8601 string format
+};
+
+export type Result = {
+  id: number;
+  profile_picture: string | null;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone_number: string;
+  address: string;
+  postal_code: string | null;
+  student_id: string;
+  blood_group: string | null;
+  gender: string;
+  user_status: string;
+  description: string;
+  batch_id: number;
+  topic: string | null;
+  course_id: string | null;
   created_at: string;
   updated_at: string;
-}
-
-export interface Material {
-  // Define material properties here if applicable, currently empty in JSON data
-}
-
-export interface ProfessorData {
-  professor: TProfessor;
-  total_students: number;
-  total_materials: number;
-  materials: Material[];
-}
-
-export interface TProfessorDashboard {
-  batches: Batch[];
-  total_batches: number;
-  total_students: number;
-  total_materials: number;
-  total_courses: number;
-}
+  user_id: number;
+  results: any[];
+};
