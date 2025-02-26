@@ -1,11 +1,12 @@
 "use client";
 import { useGetProfessorDashboardQuery } from "@/Redux/Api/professor/professorApi";
-import { Batch, TProfessorDashboard } from "@/types/interface";
+import { Batch } from "@/types/interface";
 import Image from "next/image";
 import { GiReceiveMoney } from "react-icons/gi";
 import { PiMoneyWavyLight } from "react-icons/pi";
 import { PiBookOpenUserFill } from "react-icons/pi";
 import courseImage from "@/assests/courseImage.png";
+import { TProfessorDashboard } from "@/types/professorInterface";
 
 export default function ProfessorDashboard() {
   const { data } = useGetProfessorDashboardQuery(undefined);

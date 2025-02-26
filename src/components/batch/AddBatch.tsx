@@ -1,7 +1,7 @@
 "use client";
 
 import { useStorebatchMutation } from "@/Redux/Api/batch/batchApi";
-import { useGetProffesorQuery } from "@/Redux/Api/professor/professorApi";
+import { useGetAllProfessorQuery } from "@/Redux/Api/professor/professorApi";
 import { Professor } from "@/types/interface";
 import { Upload, X } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -20,9 +20,9 @@ const initialFormData = {
 export default function AddBatch() {
   const [formData, setFormData] = useState(initialFormData);
   const [files, setFiles] = useState<FileData>({ batch_image: null });
-  const { data: professor } = useGetProffesorQuery({});
+  const { data: professor } = useGetAllProfessorQuery({});
   const professorData = professor?.data.professors?.data;
-  const router=useRouter()
+  const router = useRouter();
 
   const [storBatch] = useStorebatchMutation();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -103,7 +103,7 @@ export default function AddBatch() {
       }).unwrap();
 
       console.log("API response:", response);
-      router.push('batch')
+      router.push("batch");
 
       toast.success("Batch submitted successfully!");
 
