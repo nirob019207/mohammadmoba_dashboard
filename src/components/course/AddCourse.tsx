@@ -2,7 +2,7 @@
 
 
 import { useStorecourseMutation } from "@/Redux/Api/course/courseApi";
-import { useGetProffesorQuery } from "@/Redux/Api/professor/professorApi";
+import { useGetAllProfessorQuery } from "@/Redux/Api/professor/professorApi";
 import { Professor } from "@/types/interface";
 import { Upload, X } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -23,7 +23,7 @@ const initialFormData = {
 export default function AddCourse() {
   const [formData, setFormData] = useState(initialFormData);
   const [files, setFiles] = useState<FileData>({ course_image: null });
-  const { data: professor } = useGetProffesorQuery({});
+  const { data: professor } = useGetAllProfessorQuery({});
   const professorData = professor?.data.professors?.data;
   const router = useRouter();
 
