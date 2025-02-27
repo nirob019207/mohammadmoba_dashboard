@@ -115,12 +115,12 @@ const AddProf = () => {
       console.log("API response:", response);
       router.push("batch");
 
-      toast.success("Batch submitted successfully!");
+      toast.success("Professor submitted successfully!");
 
       setFormData(initialFormData);
       setFiles({ profile_picture: null });
     } catch (error) {
-      toast.error("Failed to submit Batch. Please try again.");
+      toast.error("Failed to submit Professor. Please try again.");
       console.error("Submit error:", error);
     } finally {
       setIsSubmitting(false);
