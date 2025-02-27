@@ -9,7 +9,10 @@ const Result = () => {
 
 
 
-  const result = data?.data?.student?.data|| [];
+  
+  const flattenedMaterials =  data?.data?.student?.data?.flatMap((course:any) => course.results) || [];;
+
+
 
 
 
@@ -31,7 +34,7 @@ const Result = () => {
 
       <div className="flex justify-between mb-5">
         <div className="w-full">
-          <ResultTable result={result} isLoading={isLoading} />
+          <ResultTable result={flattenedMaterials} isLoading={isLoading} />
         </div>
       </div>
     </div>

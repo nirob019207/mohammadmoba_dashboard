@@ -103,3 +103,36 @@ export type Result = {
   user_id: number;
   results: any[];
 };
+
+
+export type Material = {
+  id: number;
+  batch_id: number;
+  course_id: number;
+  professor_id: number;
+  title: string;
+  subtitle: string;
+  date: string;
+  total_time: string;
+  description: string;
+  video_path: string | null;
+  assignment_path: string | null;
+  submited_assignment_path: string | null;
+  marks: string;
+  created_at: string;
+  updated_at: string;
+  message: string;
+  student_id: number;
+  courses: Course[];
+  first_name: string;
+  last_name: string;
+  email_address: string;
+  phone_number: string;
+  designation: string;
+  name: string;
+  course_image: string;
+  status: string;
+  materials: Material[];
+  professor: Professor;
+};
+

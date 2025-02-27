@@ -50,6 +50,7 @@ const CourseTable: React.FC<CourseType> = ({ course, isLoading, serial }) => {
                 <th className="p-4 text-left text-sm font-medium text-gray-700">
                   Descripiton
                 </th>
+              
                 <th className="p-4 text-left text-sm font-medium text-gray-700">
                   Actions
                 </th>
@@ -62,6 +63,7 @@ const CourseTable: React.FC<CourseType> = ({ course, isLoading, serial }) => {
                   
                   <td className="p-4 text-sm">{item.name}</td>
                   <td className="p-4 text-sm">{item.description}</td>
+
                   <td className="p-4">
                     <div className="flex items-center gap-2">
                       {/* Existing action button */}
