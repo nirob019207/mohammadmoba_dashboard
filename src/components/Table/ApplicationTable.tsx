@@ -7,7 +7,8 @@ import {
   useAppRejectMutation,
 } from "@/Redux/Api/applicationApi";
 import { toast } from "sonner";
-
+import { ImCross } from "react-icons/im";
+import { FaCheck, FaEye } from "react-icons/fa";
 interface ApplicationTableProps {
   application: User[];
   isLoading: boolean;
@@ -43,8 +44,8 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({
   };
 
   // Handler for Approve action (customize as needed)
-   // Handler for Approve action
-   const handleApprove = async (app: User) => {
+  // Handler for Approve action
+  const handleApprove = async (app: User) => {
     if (!app || !app.id) {
       toast.error("Invalid application data!");
       return;
@@ -130,41 +131,24 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({
                         {/* View Details Button */}
                         <button
                           onClick={() => openModal(app)}
-                          className="flex items-center gap-1 px-2 py-1 bg-slate-500 text-white rounded hover:bg-red-600 transition-colors"
+                          className="flex items-center gap-1 p-2 text-blue-600 rounded hover:bg-blue-600 hover:text-white"
                         >
-                          <svg
-                            className="w-4 h-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                            />
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                            />
-                          </svg>
+                          <FaEye className="text-xl" />
                         </button>
                         {/* Approve Button */}
                         <button
                           onClick={() => handleApprove(app)}
-                          className="flex items-center gap-1 px-2 py-1 bg-green-500 text-white rounded hover:bg-green-600 transition-colors"
+                          className="text-blue-600 hover:text-white hover:bg-blue-600 p-2 rounded-md"
                         >
-                          <Check className="w-3 h-4" />
+                          <FaCheck className="text-xl" />
                         </button>
                         {/* Reject Button */}
+
                         <button
                           onClick={() => handleReject(app)}
-                          className="flex items-center gap-1 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
+                          className="text-red-600 hover:text-white hover:bg-red-500 p-2 rounded-md"
                         >
-                          <X className="w-3 h-4" />
+                          <ImCross className="text-xl" />
                         </button>
                       </div>
                     </td>
@@ -288,15 +272,6 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({
               <div>{selectedApplication.responsibilities}</div>
 
               <div className="font-medium">Passport Path:</div>
-              <div>
-                <Image
-                  height={33}
-                  width={44}
-                  src={`${process.env.NEXT_PUBLIC_STORAGE}/${selectedApplication.passport_path}`}
-                  alt="Passport"
-                  className="w-10 h-10"
-                />
-              </div>
 
               <div className="font-medium">NID Path:</div>
               <Image

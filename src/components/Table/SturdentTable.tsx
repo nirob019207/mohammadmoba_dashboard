@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ChevronLeft, ChevronRight, Edit, Trash } from "lucide-react";
 import { Student } from "@/types/interface";
 import { useDeleteStudentMutation } from "@/Redux/Api/student/studentApi";
+import { IoTrash } from "react-icons/io5";
 
 interface StudentType {
   student: Student[];
@@ -76,15 +77,13 @@ const StudentTable: React.FC<StudentType> = ({
                   <td className="p-4 text-sm">{item.description}</td>
                   <td className="p-4">
                     <div className="flex items-center gap-2">
-                      {/* Existing action button */}
-
                       {/* Delete action button opens modal */}
                       <button
                         onClick={() => setStudentToDelete(item.id)}
                         disabled={deleteLoading}
-                        className="text-red-600 hover:text-red-800"
+                        className="text-red-600 hover:text-white hover:bg-red-500 p-2 rounded-md"
                       >
-                        <Trash className="w-4 h-4" />
+                        <IoTrash className="text-3xl " />
                       </button>
                     </div>
                   </td>
