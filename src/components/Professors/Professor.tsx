@@ -18,11 +18,25 @@ export default function Professors() {
   );
 
   const handleAdd = () => {
-    router.push("add_course");
+    router.push("add_porfessor");
   };
 
   return (
     <div>
+          <div className="flex justify-between items-center py-4">
+        <h1 className="text-black font-semibold flex items-center text-[24px] gap-2 py-4">
+          Professor
+        </h1>
+      
+        <div className="pr-4">
+          <button
+            onClick={handleAdd}
+            className="bg-blue-700 px-4 py-2 text-white rounded-md"
+          >
+            Add Professor
+          </button>
+        </div>
+      </div>
       <ProfessorTable
         isLoading={isLoading}
         professors={professors}

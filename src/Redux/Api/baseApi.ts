@@ -24,6 +24,7 @@ export const baseApi = createApi({
     "Course",
     "mate",
     "result",
+    "Prof"
   ],
 });
 

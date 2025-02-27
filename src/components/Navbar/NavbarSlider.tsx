@@ -97,6 +97,12 @@ const navigation = [
     icon: <BookMarkedIcon size={20} />,
     roles: ["professor"],
   },
+  {
+    label: "Professors",
+    route: "/professor",
+    icon: <BookMarkedIcon size={20} />,
+    roles: ["administration"],
+  },
 ];
 
 const NavbarSlider = ({ isOpen, toggleSidebar }: SidebarProps) => {
