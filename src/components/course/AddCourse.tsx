@@ -1,6 +1,5 @@
 "use client";
 
-
 import { useStorecourseMutation } from "@/Redux/Api/course/courseApi";
 import { useGetAllProfessorQuery } from "@/Redux/Api/professor/professorApi";
 import { Professor } from "@/types/interface";
@@ -117,7 +116,9 @@ export default function AddCourse() {
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="bg-white rounded-lg shadow-lg p-6 sm:p-8">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">Add New Course</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-6">
+          Add New Course
+        </h2>
 
         <form
           onSubmit={handleSubmit}
@@ -211,59 +212,59 @@ export default function AddCourse() {
 
           {/* Image Upload */}
           <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Batch Image
-              </label>
-              <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md relative">
-                {files.course_image ? (
-                  <div className="space-y-1 text-center relative w-full">
-                    <div className="flex items-center justify-center">
-                      <img
-                        src={URL.createObjectURL(files.course_image)}
-                        alt="Preview"
-                        className="h-32 w-auto object-contain"
-                      />
-                    </div>
-                    <div className="flex text-sm text-gray-600 justify-center items-center mt-2">
-                      <span className="relative rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500">
-                        {files.course_image.name}
-                      </span>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => removeFile("course_image")}
-                      className="absolute top-0 right-0 p-1 bg-red-100 rounded-full text-red-600 hover:bg-red-200"
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Batch Image
+            </label>
+            <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md relative">
+              {files.course_image ? (
+                <div className="space-y-1 text-center relative w-full">
+                  <div className="flex items-center justify-center">
+                    <img
+                      src={URL.createObjectURL(files.course_image)}
+                      alt="Preview"
+                      className="h-32 w-auto object-contain"
+                    />
+                  </div>
+                  <div className="flex text-sm text-gray-600 justify-center items-center mt-2">
+                    <span className="relative rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500">
+                      {files.course_image.name}
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => removeFile("course_image")}
+                    className="absolute top-0 right-0 p-1 bg-red-100 rounded-full text-red-600 hover:bg-red-200"
+                  >
+                    <X size={16} />
+                  </button>
+                </div>
+              ) : (
+                <div className="space-y-1 text-center">
+                  <Upload className="mx-auto h-12 w-12 text-gray-400" />
+                  <div className="flex text-sm text-gray-600">
+                    <label
+                      htmlFor="course_image"
+                      className="relative cursor-pointer rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500"
                     >
-                      <X size={16} />
-                    </button>
+                      <span>Upload a file</span>
+                      <input
+                        id="course_image"
+                        name="course_image"
+                        type="file"
+                        className="sr-only"
+                        onChange={(e) => handleFileChange(e, "course_image")}
+                        accept="image/*"
+                      />
+                    </label>
+                    <p className="pl-1">or drag and drop</p>
                   </div>
-                ) : (
-                  <div className="space-y-1 text-center">
-                    <Upload className="mx-auto h-12 w-12 text-gray-400" />
-                    <div className="flex text-sm text-gray-600">
-                      <label
-                        htmlFor="course_image"
-                        className="relative cursor-pointer rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500"
-                      >
-                        <span>Upload a file</span>
-                        <input
-                          id="course_image"
-                          name="course_image"
-                          type="file"
-                          className="sr-only"
-                          onChange={(e) => handleFileChange(e, "course_image")}
-                          accept="image/*"
-                        />
-                      </label>
-                      <p className="pl-1">or drag and drop</p>
-                    </div>
-                    <p className="text-xs text-gray-500">
-                      PNG, JPG, WebP up to 5MB
-                    </p>
-                  </div>
-                )}
-              </div>
+                  <p className="text-xs text-gray-500">
+                    PNG, JPG, WebP up to 5MB
+                  </p>
+                </div>
+              )}
             </div>
+          </div>
 
           {/* Submit Button */}
           <div className="flex justify-end space-x-3">
