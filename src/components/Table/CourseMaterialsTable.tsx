@@ -1,39 +1,50 @@
+"use client";
+
 import React, { useState } from "react";
 import { ChevronLeft, ChevronRight, Edit, Trash } from "lucide-react";
-import { Student } from "@/types/interface";
-import { useDeleteStudentMutation } from "@/Redux/Api/student/studentApi";
+import {
+  useDeleteMaterialsMutation,
+  useGetMaterialsByCourseIdQuery,
+} from "@/Redux/Api/professor/professorApi";
+import { useParams, useRouter } from "next/navigation";
+import { Material } from "@/types/professorInterface";
+import { formatDate } from "@/utils/FormatDate";
 
-interface StudentType {
-  student: Student[];
-  isLoading: boolean;
-  serial: number;
-}
+const CourseMaterialsTable: React.FC = () => {
+  const { courseId } = useParams();
+  const { data, isLoading } = useGetMaterialsByCourseIdQuery(
+    courseId as string
+  );
+  const router = useRouter();
+  const serial = 1;
 
-const StudentTable: React.FC<StudentType> = ({
-  student,
-  isLoading,
-  serial,
-}) => {
-  const [deleteStudent, { isLoading: deleteLoading }] =
-    useDeleteStudentMutation();
+  const courseMaterials = data?.data?.materials || [];
+  console.log(data);
+  const [deleteMaterials, { isLoading: deleteLoading }] =
+    useDeleteMaterialsMutation();
+
   const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
-  // State to store the batch id that the user wants to delete
-  const [studentToDelete, setStudentToDelete] = useState<string | null>(null);
 
-  const totalPages = Math.ceil(student?.length / itemsPerPage);
+  // State to store the batch id that the user wants to delete
+  const [courseToDelete, setCourseToDelete] = useState<number | null>(null);
+
+  const totalPages = Math.ceil(courseMaterials?.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedData = student?.slice(startIndex, startIndex + itemsPerPage);
+  const paginatedData = courseMaterials?.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
 
   const confirmDelete = async () => {
-    if (studentToDelete) {
+    if (courseToDelete) {
       try {
-        await deleteStudent(studentToDelete).unwrap();
+        await deleteMaterials(courseToDelete).unwrap();
         // Optionally, display a success message or refetch data here
       } catch (error) {
         console.error("Failed to delete batch: ", error);
       } finally {
-        setStudentToDelete(null);
+        setCourseToDelete(null);
       }
     }
   };
@@ -42,20 +53,22 @@ const StudentTable: React.FC<StudentType> = ({
     <div className="overflow-x-auto rounded-lg">
       {isLoading ? (
         <p className="text-center text-gray-700">Loading...</p>
-      ) : student?.length > 0 ? (
+      ) : courseMaterials?.length > 0 ? (
         <>
           <table className="min-w-full border-collapse bg-white">
             <thead>
               <tr className="bg-[#E6F0FF]">
                 <th className="p-4 text-left text-sm font-medium text-gray-700">
-                  #
-                </th>
-
-                <th className="p-4 text-left text-sm font-medium text-gray-700">
-                  Name
+                  Course Name
                 </th>
                 <th className="p-4 text-left text-sm font-medium text-gray-700">
-                  Description
+                  Instructor
+                </th>
+                <th className="p-4 text-left text-sm font-medium text-gray-700">
+                  Total Time
+                </th>
+                <th className="p-4 text-left text-sm font-medium text-gray-700">
+                  Published Date
                 </th>
                 <th className="p-4 text-left text-sm font-medium text-gray-700">
                   Actions
@@ -63,24 +76,28 @@ const StudentTable: React.FC<StudentType> = ({
               </tr>
             </thead>
             <tbody className="bg-white">
-              {paginatedData?.map((item: any, index) => (
+              {paginatedData?.map((item: Material, index: number) => (
                 <tr
                   key={item.id}
                   className="border-b border-gray-100 hover:bg-gray-50"
                 >
-                  <td className="p-4 text-sm">{serial + startIndex + index}</td>
-
-                  <td className="p-4 text-sm">
-                    {item.first_name + " " + item.last_name}
-                  </td>
-                  <td className="p-4 text-sm">{item.description}</td>
+                  <td className="p-4 text-sm">{item.title}</td>
+                  <td className="p-4 text-sm">{item.professor_id}</td>
+                  <td className="p-4 text-sm">{item.total_time}</td>
+                  <td className="p-4 text-sm">{formatDate(item.created_at)}</td>
                   <td className="p-4">
                     <div className="flex items-center gap-2">
                       {/* Existing action button */}
+                      <button
+                        className="text-green-600 hover:text-gray"
+                        onClick={() => setCourseToDelete(item.id)}
+                      >
+                        <Edit className="w-4 h-4" />
+                      </button>
 
                       {/* Delete action button opens modal */}
                       <button
-                        onClick={() => setStudentToDelete(item.id)}
+                        onClick={() => setCourseToDelete(item.id)}
                         disabled={deleteLoading}
                         className="text-red-600 hover:text-red-800"
                       >
@@ -97,8 +114,8 @@ const StudentTable: React.FC<StudentType> = ({
           <div className="flex items-center justify-between bg-white px-4 py-3 border-t">
             <div className="text-sm text-gray-700">
               Showing {startIndex + 1} to{" "}
-              {Math.min(startIndex + itemsPerPage, student?.length)} of{" "}
-              {student?.length} results
+              {Math.min(startIndex + itemsPerPage, courseMaterials?.length)} of{" "}
+              {courseMaterials?.length} results
             </div>
             <div className="flex items-center gap-1">
               <button
@@ -136,23 +153,21 @@ const StudentTable: React.FC<StudentType> = ({
           </div>
         </>
       ) : (
-        <p className="text-center text-gray-700 p-4">No Student found.</p>
+        <p className="text-center text-gray-700 p-4">No Materials Found.</p>
       )}
 
       {/* Delete Confirmation Modal */}
-      {studentToDelete && (
+      {courseToDelete && (
         <div className="fixed inset-0 flex items-center justify-center z-50">
           {/* Modal Overlay */}
           <div className="absolute inset-0 bg-black opacity-50"></div>
           {/* Modal Content */}
           <div className="relative bg-white rounded-lg shadow-lg p-6 w-11/12 md:w-1/3 z-10">
             <h2 className="text-xl font-semibold mb-4">Confirm Delete</h2>
-            <p className="mb-6">
-              Are you sure you want to delete this Student?
-            </p>
+            <p className="mb-6">Are you sure you want to delete this Course?</p>
             <div className="flex justify-end gap-4">
               <button
-                onClick={() => setStudentToDelete(null)}
+                onClick={() => setCourseToDelete(null)}
                 className="px-4 py-2 rounded-md border border-gray-300 text-gray-700"
               >
                 Cancel
@@ -172,4 +187,4 @@ const StudentTable: React.FC<StudentType> = ({
   );
 };
 
-export default StudentTable;
+export default CourseMaterialsTable;
