@@ -8,23 +8,37 @@ import { FaBox, FaTags, FaBuilding, FaBlogger, FaChartBar } from "react-icons/fa
 import { useDispatch } from "react-redux";
 import { logOut } from "@/Redux/ReduxFunction";
 import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 import logout from "@/assests/logout.png";
 import DashboardLogo from "../icon/DashboardLogo";
 import { AppDispatch } from "@/Redux/store";
+import { BookMarkedIcon } from "lucide-react";
 
 interface SidebarProps {
   isOpen: boolean;
   toggleSidebar: () => void;
 }
 
+interface DecodedToken {
+  role: string;
+}
+
+// Define navigation items with roles
 const navigation = [
-  { label: "Dashboard", route: "/", icon: <MdDashboard size={20} /> },
-  { label: "Applications", route: "/application", icon: <FaBox size={20} /> },
-  { label: "Batch", route: "/batch", icon: <FaTags size={20} /> },
-  { label: "Course", route: "/course", icon: <FaBuilding size={20} /> },
-  { label: "Student", route: "/student", icon: <FaBlogger size={20} /> },
-  { label: "My Course", route: "/mycourse", icon: <FaChartBar size={20} /> },
-  { label: "Result", route: "/result", icon: <MdBookmarks size={20} /> },
+  { label: "Dashboard", route: "/", icon: <MdDashboard size={20} />, roles: ["administration","professor","student"] },
+  { label: "Applications", route: "/application", icon: <FaBox size={20} />, roles: ["administration"] },
+  { label: "Batch", route: "/batch", icon: <FaTags size={20} />, roles: ["administration", ""] },
+  { label: "Course", route: "/course", icon: <FaBuilding size={20} />, roles: ["administration"] },
+  { label: "Student", route: "/student", icon: <FaBlogger size={20} />, roles: ["administration"] },
+  { label: "My Course", route: "/mycourse", icon: <FaChartBar size={20} />, roles: ["student"] },
+  { label: "Result", route: "/result", icon: <MdBookmarks size={20} />, roles: ["student"] },
+  { label: "Marks", route: "/marks", icon: <BookMarkedIcon size={20} />, roles: ["student"] },
+  { label: "Batches", route: "/professor-batch", icon: <BookMarkedIcon size={20} />, roles: ["professor"] },
+  { label: "Materials", route: "/professor-materials", icon: <BookMarkedIcon size={20} />, roles: ["professor"] },
+  { label: "Batches Student", route: "/professor-batches-student", icon: <BookMarkedIcon size={20} />, roles: ["professor"] },
+
+
+
 
 
 ];
@@ -34,9 +48,22 @@ const NavbarSlider = ({ isOpen, toggleSidebar }: SidebarProps) => {
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
 
+  // Retrieve and decode the token
+  const token = Cookies.get("token");
+  let userRole = "";
+
+  if (token) {
+    try {
+      const decoded: DecodedToken = jwtDecode(token);
+      userRole = decoded.role;
+    } catch (error) {
+      console.error("Invalid token:", error);
+    }
+  }
+
   const handleLogOut = () => {
     dispatch(logOut());
-    Cookies.remove("accessToken");
+    Cookies.remove("token");
     router.push("/login");
   };
 
@@ -57,6 +84,12 @@ const NavbarSlider = ({ isOpen, toggleSidebar }: SidebarProps) => {
         <ul className="space-y-2 p-2">
           {navigation.map((item) => {
             const isActive = path === item.route;
+            
+            // Only display the menu if the user has the correct role
+            if (!item.roles.includes(userRole)) {
+              return null;
+            }
+
             return (
               <li key={item.route}>
                 <Link
