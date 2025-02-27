@@ -31,7 +31,7 @@ const professorApi = baseApi.injectEndpoints({
     }),
     getProfessorBatches: build.query({
       query: () => ({
-        url: `/professors/get/batches`,
+        url: `/professors/get/students-with-results`,
         method: "GET",
       }),
     }),
