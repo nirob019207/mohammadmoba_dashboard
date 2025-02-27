@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -67,10 +67,10 @@ export default function ChangePassword() {
         {/* Form */}
         <div>
           <div className="space-y-2 mt-6 mb-8 text-center">
-            <h1 className="text-xl md:text-2xl font-outfit font-semibold">
+            <h1 className="text-xl md:text-4xl font-outfit font-semibold text-slate-700">
               Change New Password!
             </h1>
-            <p className="text-sm md:text-base font-normal font-inter text-gray-500">
+            <p className="text-sm md:text-base font-normal font-inter text-slate-700">
               Enter a different password than the previous one
             </p>
           </div>
@@ -110,7 +110,9 @@ export default function ChangePassword() {
                 </Button>
               </div>
               {errors.newPassword && (
-                <p className="text-red-500 text-sm">{errors.newPassword.message}</p>
+                <p className="text-red-500 text-sm">
+                  {errors.newPassword.message}
+                </p>
               )}
             </div>
 
@@ -150,7 +152,9 @@ export default function ChangePassword() {
                 </Button>
               </div>
               {errors.confirmPassword && (
-                <p className="text-red-500 text-sm">{errors.confirmPassword.message}</p>
+                <p className="text-red-500 text-sm">
+                  {errors.confirmPassword.message}
+                </p>
               )}
             </div>
 
