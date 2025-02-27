@@ -9,6 +9,13 @@ const professorApi = baseApi.injectEndpoints({
       }),
     }),
 
+    getAllMaterials: build.query({
+      query: () => ({
+        url: `/materials`,
+        method: "GET",
+      }),
+    }),
+
     getProfessorDetails: build.query({
       query: (id) => ({
         url: `/professors/${id}`,
@@ -35,9 +42,24 @@ const professorApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+
+    getMaterialsByCourseId: build.query({
+      query: (id: string) => ({
+        url: `/materials/${id}`,
+        method: "GET",
+      }),
+    }),
+
     deleteProfessor: build.mutation({
       query: (id) => ({
         url: `/professors/${id}`,
+        method: "DELETE",
+      }),
+    }),
+
+    deleteMaterials: build.mutation({
+      query: (id) => ({
+        url: `/materials/${id}`,
         method: "DELETE",
       }),
     }),
@@ -51,4 +73,7 @@ export const {
   useGetProfessorDetailsQuery,
   useGetProfessorsBatchStudentsQuery,
   useDeleteProfessorMutation,
+  useGetAllMaterialsQuery,
+  useDeleteMaterialsMutation,
+  useGetMaterialsByCourseIdQuery,
 } = professorApi;
