@@ -91,7 +91,6 @@ export default function AddCourse() {
         formDataToSend,
       }).unwrap();
 
-      console.log("API response:", response);
       router.push("/course");
 
       toast.success("Batch submitted successfully!");

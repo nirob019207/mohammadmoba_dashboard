@@ -20,7 +20,6 @@ const Batch = () => {
   const handleAdd = () => {
     router.push("add_batch");
   };
-  console.log(batchData);
 
   return (
     <div className="pl-3">

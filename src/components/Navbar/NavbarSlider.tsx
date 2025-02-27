@@ -19,7 +19,9 @@ import logout from "@/assests/logout.png";
 import DashboardLogo from "../icon/DashboardLogo";
 import { AppDispatch } from "@/Redux/store";
 import { BookMarkedIcon } from "lucide-react";
-
+import { VscBook } from "react-icons/vsc";
+import { IoNewspaperSharp } from "react-icons/io5";
+import { PiListChecksFill, PiStudentBold } from "react-icons/pi";
 interface SidebarProps {
   isOpen: boolean;
   toggleSidebar: () => void;
@@ -34,67 +36,67 @@ const navigation = [
   {
     label: "Dashboard",
     route: "/",
-    icon: <MdDashboard size={20} />,
+    icon: <MdDashboard className="text-3xl" />,
     roles: ["administration", "professor", "student"],
   },
   {
     label: "Applications",
     route: "/application",
-    icon: <FaBox size={20} />,
+    icon: <PiListChecksFill className="text-3xl" />,
     roles: ["administration"],
   },
   {
     label: "Batch",
     route: "/batch",
-    icon: <FaTags size={20} />,
+    icon: <FaTags className="text-3xl" />,
     roles: ["administration", ""],
   },
   {
     label: "Course",
     route: "/course",
-    icon: <FaBuilding size={20} />,
+    icon: <VscBook className="text-3xl" />,
     roles: ["administration"],
   },
   {
     label: "Student",
     route: "/student",
-    icon: <FaBlogger size={20} />,
+    icon: <PiStudentBold className="text-3xl" />,
     roles: ["administration"],
   },
   {
     label: "My Course",
     route: "/mycourse",
-    icon: <FaChartBar size={20} />,
+    icon: <VscBook className="text-3xl" />,
     roles: ["student"],
   },
   {
     label: "Result",
     route: "/result",
-    icon: <MdBookmarks size={20} />,
+    icon: <IoNewspaperSharp className="text-3xl" />,
     roles: ["student"],
   },
   {
     label: "Marks",
     route: "/marks",
-    icon: <BookMarkedIcon size={20} />,
+    icon: <BookMarkedIcon className="text-3xl" />,
     roles: ["student"],
   },
   {
     label: "Batches",
     route: "/professor-batches",
-    icon: <BookMarkedIcon size={20} />,
+    icon: <BookMarkedIcon className="text-3xl" />,
     roles: ["professor"],
   },
   {
     label: "Materials",
     route: "/professor-materials",
-    icon: <BookMarkedIcon size={20} />,
+    icon: <BookMarkedIcon className="text-3xl" />,
     roles: ["professor"],
   },
   {
     label: "Batches Student",
     route: "/professor-batches-student",
-    icon: <BookMarkedIcon size={20} />,
+    icon: <BookMarkedIcon className="text-3xl" />,
     roles: ["professor"],
   },
 ];
