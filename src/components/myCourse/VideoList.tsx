@@ -1,93 +1,101 @@
-"use client"
+"use client";
 
-import { useParams, useRouter } from "next/navigation"
-import { useGetmatQuery } from "@/Redux/Api/mycourse/mycourseApi"
-import { Download, FileText, PlayCircle } from "lucide-react"
-import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
+import { useParams, useRouter } from "next/navigation";
+import { useGetmatQuery } from "@/Redux/Api/mycourse/mycourseApi";
+import { Download, FileText, PlayCircle } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
 
-const NEXT_PUBLIC_STORAGE = "http://10.0.10.59:8003"
+const NEXT_PUBLIC_STORAGE = "http://10.0.10.59:8003";
 
 export default function VideoList() {
-  const param = useParams()
-  const router = useRouter()
-  const { data, isLoading } = useGetmatQuery(param.id)
+  const param = useParams();
+  const router = useRouter();
+  const { data, isLoading } = useGetmatQuery(param.id);
 
-  const singleMaterial = data?.data?.materials ?? []
-  const singleId = Number.parseInt(param.singleId, 10)
+  const singleMaterial = data?.data?.materials ?? [];
+  const singleId = Number.parseInt(param.singleId as string, 10);
 
   // State to track the current video, title, and assignment
-  const [currentVideo, setCurrentVideo] = useState<string | null>(null)
-  const [currentTitle, setCurrentTitle] = useState<string>("")
-  const [currentSubtitle, setCurrentSubtitle] = useState<string>("")
-  const [currentDescription, setCurrentDescription] = useState<string>("")
-  const [currentAssignment, setCurrentAssignment] = useState<string | null>(null)
-  const [currentMaterial, setCurrentMaterial] = useState<any>(null)
+  const [currentVideo, setCurrentVideo] = useState<string | null>(null);
+  const [currentTitle, setCurrentTitle] = useState<string>("");
+  const [currentSubtitle, setCurrentSubtitle] = useState<string>("");
+  const [currentDescription, setCurrentDescription] = useState<string>("");
+  const [currentAssignment, setCurrentAssignment] = useState<string | null>(
+    null
+  );
+  const [currentMaterial, setCurrentMaterial] = useState<any>(null);
 
   // Find and set the initial material when component mounts or data changes
   useEffect(() => {
     if (singleMaterial.length > 0) {
       // Try to find the material with the matching singleId
-      const selectedMaterial = singleMaterial.find((mate: any) => mate.id === singleId)
+      const selectedMaterial = singleMaterial.find(
+        (mate: any) => mate.id === singleId
+      );
 
       // Update state with the selected material if found
       if (selectedMaterial) {
-        updateCurrentMaterial(selectedMaterial)
+        updateCurrentMaterial(selectedMaterial);
       }
       // If no matching material found but we have materials with videos, use the first one
       else if (singleId === undefined || isNaN(singleId)) {
-        const firstVideoMaterial = singleMaterial.find((mate: any) => mate.video_path)
+        const firstVideoMaterial = singleMaterial.find(
+          (mate: any) => mate.video_path
+        );
         if (firstVideoMaterial) {
-          updateCurrentMaterial(firstVideoMaterial)
+          updateCurrentMaterial(firstVideoMaterial);
         } else {
           // Fallback to first material if no videos available
-          updateCurrentMaterial(singleMaterial[0])
+          updateCurrentMaterial(singleMaterial[0]);
         }
       }
     }
-  }, [singleMaterial, singleId])
+  }, [singleMaterial, singleId]);
 
   // Function to update all current material state
   const updateCurrentMaterial = (material: any) => {
-    setCurrentMaterial(material)
-    setCurrentTitle(material.title || "")
-    setCurrentSubtitle(material.subtitle || "")
-    setCurrentDescription(material.description || "")
+    setCurrentMaterial(material);
+    setCurrentTitle(material.title || "");
+    setCurrentSubtitle(material.subtitle || "");
+    setCurrentDescription(material.description || "");
 
     // Set video path if available
     if (material.video_path) {
-      setCurrentVideo(`${NEXT_PUBLIC_STORAGE}/${material.video_path}`)
+      setCurrentVideo(`${NEXT_PUBLIC_STORAGE}/${material.video_path}`);
     } else {
-      setCurrentVideo(null)
+      setCurrentVideo(null);
     }
 
     // Set assignment path if available
     if (material.assignment_path) {
-      setCurrentAssignment(`${NEXT_PUBLIC_STORAGE}/${material.assignment_path}`)
+      setCurrentAssignment(
+        `${NEXT_PUBLIC_STORAGE}/${material.assignment_path}`
+      );
     } else {
-      setCurrentAssignment(null)
+      setCurrentAssignment(null);
     }
-  }
+  };
 
   // Handle click on a material in the sidebar
   const handleVideoClick = (material: any) => {
-    updateCurrentMaterial(material)
+    updateCurrentMaterial(material);
     // No URL updates here
-  }
+  };
 
   // Handle assignment download
   const handleDownloadAssignment = () => {
     if (currentAssignment) {
-      window.open(currentAssignment, "_blank")
+      window.open(currentAssignment, "_blank");
     }
-  }
+  };
 
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
       </div>
-    )
+    );
   }
 
   return (
@@ -114,8 +122,12 @@ export default function VideoList() {
         {/* Video title and info */}
         <div className="space-y-4">
           <div>
-            <h1 className="text-xl font-bold">{currentTitle || "No Title Available"}</h1>
-            {currentSubtitle && <p className="text-gray-500">{currentSubtitle}</p>}
+            <h1 className="text-xl font-bold">
+              {currentTitle || "No Title Available"}
+            </h1>
+            {currentSubtitle && (
+              <p className="text-gray-500">{currentSubtitle}</p>
+            )}
           </div>
 
           {currentDescription && (
@@ -136,13 +148,18 @@ export default function VideoList() {
                     <FileText className="h-5 w-5 text-blue-500" />
                     <span>Assignment available</span>
                   </div>
-                  <Button onClick={handleDownloadAssignment} className="flex items-center space-x-1">
+                  <Button
+                    onClick={handleDownloadAssignment}
+                    className="flex items-center space-x-1"
+                  >
                     <Download className="h-4 w-4" />
                     <span>Download</span>
                   </Button>
                 </div>
               ) : (
-                <p className="text-gray-500 text-sm">No assignment available for this lecture.</p>
+                <p className="text-gray-500 text-sm">
+                  No assignment available for this lecture.
+                </p>
               )}
 
               {currentMaterial.submited_assignment_path && (
@@ -152,7 +169,9 @@ export default function VideoList() {
                       <FileText className="h-5 w-5 text-green-500" />
                       <span>Submitted assignment</span>
                     </div>
-                    <div className="text-sm font-medium">Marks: {currentMaterial.marks || "Not graded"}</div>
+                    <div className="text-sm font-medium">
+                      Marks: {currentMaterial.marks || "Not graded"}
+                    </div>
                   </div>
                 </div>
               )}
@@ -165,7 +184,9 @@ export default function VideoList() {
       <div className="w-full lg:w-1/3 bg-gray-50 rounded-lg p-4">
         <div className="flex items-center justify-between mb-4">
           <h2 className="font-bold">Course Materials</h2>
-          <span className="text-sm text-gray-500">Lectures ({singleMaterial.length})</span>
+          <span className="text-sm text-gray-500">
+            Lectures ({singleMaterial.length})
+          </span>
         </div>
 
         <div className="space-y-2 max-h-[600px] overflow-y-auto pr-1">
@@ -173,7 +194,9 @@ export default function VideoList() {
             <div
               key={material.id}
               className={`p-3 bg-white rounded-lg shadow-sm cursor-pointer transition-all hover:shadow-md ${
-                currentMaterial?.id === material.id ? "border-l-4 border-blue-500" : ""
+                currentMaterial?.id === material.id
+                  ? "border-l-4 border-blue-500"
+                  : ""
               }`}
               onClick={() => handleVideoClick(material)}
             >
@@ -185,7 +208,11 @@ export default function VideoList() {
                   <FileText className="h-5 w-5 text-gray-400 flex-shrink-0" />
                 )}
               </div>
-              {material.subtitle && <p className="text-xs text-gray-500 mt-1">{material.subtitle}</p>}
+              {material.subtitle && (
+                <p className="text-xs text-gray-500 mt-1">
+                  {material.subtitle}
+                </p>
+              )}
               <div className="flex justify-between items-center mt-2 text-xs text-gray-500">
                 <span>{material.total_time}</span>
                 {material.assignment_path && (
@@ -199,6 +226,5 @@ export default function VideoList() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-

@@ -6,7 +6,7 @@ export default function MaterialsPage() {
   return (
     <div>
       <Link
-        href={"/add-materials"}
+        href={"/professor-materials/add-materials"}
         className="px-4 py-2 rounded-md flex gap-2 items-center my-6 bg-blue-600 text-white w-fit"
       >
         <FaPlus className="text-xl text-white" />
