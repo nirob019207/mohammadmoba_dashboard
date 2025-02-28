@@ -11,9 +11,6 @@ const Course = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const courseData = data?.data?.courses?.data || [];
-  console.log(courseData)
-
-
 
   const handleAdd = () => {
     router.push("add_course");
@@ -25,16 +22,16 @@ const Course = () => {
         <h1 className="text-black font-semibold flex items-center text-[24px] gap-2 py-4">
           Application
         </h1>
-           {/* Search Field */}
-      <div className="mb-5">
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Search Course by title..."
-          className="border border-gray-300 px-3 py-2 rounded-md w-full"
-        />
-      </div>
+        {/* Search Field */}
+        <div className="mb-5">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search Course by title..."
+            className="border border-gray-300 px-3 py-2 rounded-md w-full"
+          />
+        </div>
         <div className="pr-4">
           <button
             onClick={handleAdd}
@@ -44,8 +41,6 @@ const Course = () => {
           </button>
         </div>
       </div>
-
-   
 
       <div className="flex justify-between mb-5">
         <div className="w-full">

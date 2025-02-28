@@ -7,7 +7,5 @@ export default function ProfessorBatches() {
 
   const batchData = data?.data?.batch_data || [];
 
-  console.log(batchData);
-
   return <div>Hello</div>;
 }

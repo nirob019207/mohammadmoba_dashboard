@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
@@ -61,7 +61,7 @@ export default function ForgotPassword() {
         {/* Form */}
         <div>
           <div className="text-center">
-            <h1 className="text-2xl text-[#1D2939] sm:text-3xl md:text-4xl font-sans font-semibold">
+            <h1 className="text-4xl text-[#1D2939] sm:text-3xl md:text-4xl font-sans font-bold">
               Forgot Password!
             </h1>
             <p className="text-xs sm:text-sm md:text-base mt-4 font-outfit text-gray-500">
@@ -97,7 +97,7 @@ export default function ForgotPassword() {
               <span className="text-gray-600">Remember the password?</span>
               <Link
                 href="/login"
-                className="ml-1 underline text-[#00008B] font-medium font-inter hover:underline"
+                className="ml-1 underline text-blue-600 font-medium font-inter hover:underline"
               >
                 Sign in
               </Link>

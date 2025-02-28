@@ -19,7 +19,7 @@ const CourseMaterialsTable: React.FC = () => {
   const serial = 1;
 
   const courseMaterials = data?.data?.materials || [];
-  console.log(data);
+
   const [deleteMaterials, { isLoading: deleteLoading }] =
     useDeleteMaterialsMutation();
 

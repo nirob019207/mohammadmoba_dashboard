@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { ChevronLeft, ChevronRight, Edit, Trash, Trash2 } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { Batch } from "@/types/interface";
 import { useDeleteBatchMutation } from "@/Redux/Api/batch/batchApi";
-import { FaReddit } from "react-icons/fa6";
+import { IoTrash } from "react-icons/io5";
+import { FiEdit } from "react-icons/fi";
+import { formatDate } from "@/utils/FormatDate";
 
 interface BatchType {
   batch: Batch[];
@@ -21,7 +23,7 @@ const BatchTable: React.FC<BatchType> = ({ batch, isLoading, serial }) => {
   const totalPages = Math.ceil(batch?.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedData = batch?.slice(startIndex, startIndex + itemsPerPage);
-
+  console.log(batch);
   const confirmDelete = async () => {
     if (batchToDelete) {
       try {
@@ -44,7 +46,9 @@ const BatchTable: React.FC<BatchType> = ({ batch, isLoading, serial }) => {
           <table className="min-w-full border-collapse bg-white">
             <thead>
               <tr className="bg-[#E6F0FF]">
-                <th className="p-4 text-left text-sm font-medium text-gray-700">#</th>
+                <th className="p-4 text-left text-sm font-medium text-gray-700">
+                  #
+                </th>
                 <th className="p-4 text-left text-sm font-medium text-gray-700">
                   Batch Image
                 </th>
@@ -55,39 +59,48 @@ const BatchTable: React.FC<BatchType> = ({ batch, isLoading, serial }) => {
                   Subtitle
                 </th>
                 <th className="p-4 text-left text-sm font-medium text-gray-700">
+                  Created
+                </th>
+                <th className="p-4 text-left text-sm font-medium text-gray-700">
                   Actions
                 </th>
               </tr>
             </thead>
             <tbody className="bg-white">
               {paginatedData?.map((item: any, index) => (
-                <tr key={item.id} className="border-b border-gray-100 hover:bg-gray-50">
+                <tr
+                  key={item.id}
+                  className="border-b border-gray-100 hover:bg-gray-50"
+                >
                   <td className="p-4 text-sm">{serial + startIndex + index}</td>
                   <td className="p-4 text-sm">
-                    {/* <Image
+                    <Image
                       height={33}
                       width={44}
-                      src={`${process.env.NEXT_PUBLIC_STORAGE}/${item.batch_image.trimEnd()}`}
+                      src={`${
+                        process.env.NEXT_PUBLIC_STORAGE
+                      }/${item.batch_image.trimEnd()}`}
                       alt={item.title}
-                      className="w-10 h-10"
-                    /> */}
+                      className="w-12 h-12"
+                    />
                   </td>
                   <td className="p-4 text-sm">{item.title}</td>
                   <td className="p-4 text-sm">{item.subtitle}</td>
+                  <td className="p-4 text-sm">{formatDate(item.created_at)}</td>
                   <td className="p-4">
                     <div className="flex items-center gap-2">
                       {/* Existing action button */}
-                      <button className="text-green-600 hover:text-gray">
-                        <Edit className="w-4 h-4"/>
+                      <button className="text-blue-600 hover:text-white hover:bg-blue-600 p-2 rounded-md">
+                        <FiEdit className="text-3xl" />
                       </button>
 
                       {/* Delete action button opens modal */}
                       <button
                         onClick={() => setBatchToDelete(item.id)}
                         disabled={deleteLoading}
-                        className="text-red-600 hover:text-red-800"
+                        className="text-red-600 hover:text-white hover:bg-red-500 p-2 rounded-md"
                       >
-                        <Trash className="w-4 h-4" />
+                        <IoTrash className="text-3xl " />
                       </button>
                     </div>
                   </td>
@@ -99,7 +112,9 @@ const BatchTable: React.FC<BatchType> = ({ batch, isLoading, serial }) => {
           {/* Pagination */}
           <div className="flex items-center justify-between bg-white px-4 py-3 border-t">
             <div className="text-sm text-gray-700">
-              Showing {startIndex + 1} to {Math.min(startIndex + itemsPerPage, batch.length)} of {batch.length} results
+              Showing {startIndex + 1} to{" "}
+              {Math.min(startIndex + itemsPerPage, batch.length)} of{" "}
+              {batch.length} results
             </div>
             <div className="flex items-center gap-1">
               <button
@@ -109,19 +124,25 @@ const BatchTable: React.FC<BatchType> = ({ batch, isLoading, serial }) => {
               >
                 <ChevronLeft className="h-4 w-4" />
               </button>
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                <button
-                  key={page}
-                  onClick={() => setCurrentPage(page)}
-                  className={`px-3 py-1 text-sm rounded-md ${
-                    currentPage === page ? "bg-blue-500 text-white" : "text-gray-700 hover:bg-gray-100"
-                  }`}
-                >
-                  {page}
-                </button>
-              ))}
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                (page) => (
+                  <button
+                    key={page}
+                    onClick={() => setCurrentPage(page)}
+                    className={`px-3 py-1 text-sm rounded-md ${
+                      currentPage === page
+                        ? "bg-blue-500 text-white"
+                        : "text-gray-700 hover:bg-gray-100"
+                    }`}
+                  >
+                    {page}
+                  </button>
+                )
+              )}
               <button
-                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                onClick={() =>
+                  setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                }
                 disabled={currentPage === totalPages}
                 className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-sm text-gray-500 hover:text-gray-700 disabled:opacity-50"
               >

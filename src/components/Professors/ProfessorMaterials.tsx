@@ -7,8 +7,6 @@ export default function ProfessorMaterials() {
 
   const batchData = data?.data;
 
-  console.log(batchData);
-
   return (
     <div>
       <h1
