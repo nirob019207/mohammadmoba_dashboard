@@ -18,7 +18,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Mohammad || Dashboard",
+  title: "Mohammad ||        Dashboard",
   description: "Jags Dasboard - Compared to the Product",
   icons: {
     icon: logo.src

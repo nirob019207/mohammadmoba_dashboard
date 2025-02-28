@@ -116,7 +116,7 @@ const ProfessorTable: React.FC<StudentType> = ({
 
                       {/* Delete action button opens modal */}
                       <button
-                        onClick={() => setProfessorToDelete(item.user_id)}
+                        onClick={() => setProfessorToDelete(item.id)}
                         disabled={deleteLoading}
                         className="text-red-600 hover:text-red-800"
                       >
