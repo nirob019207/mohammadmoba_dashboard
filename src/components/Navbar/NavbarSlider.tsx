@@ -99,6 +99,12 @@ const navigation = [
     icon: <BookMarkedIcon className="text-3xl" />,
     roles: ["professor"],
   },
+  {
+    label: "Professors",
+    route: "/professor",
+    icon: <BookMarkedIcon size={20} />,
+    roles: ["administration"],
+  },
 ];
 
 const NavbarSlider = ({ isOpen, toggleSidebar }: SidebarProps) => {
