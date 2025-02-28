@@ -62,7 +62,8 @@ export default function LoginPage() {
       }
     } catch (err: any) {
       toast.dismiss();
-      toast.error(err?.message || "An error occurred. Please try again.");
+      toast.error(err?.message);
+  
     }
   };
 
