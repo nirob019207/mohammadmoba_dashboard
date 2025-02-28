@@ -43,9 +43,16 @@ const professorApi = baseApi.injectEndpoints({
       }),
     }),
 
-    getMaterialsByCourseId: build.query({
+    getCourseByBatchId: build.query({
       query: (id: string) => ({
-        url: `/materials/${id}`,
+        url: `/professors/get/batch/${id}/course`,
+        method: "GET",
+      }),
+    }),
+
+    getMaterialsByCourseId: build.query({
+      query: ({ batchId, courseId }) => ({
+        url: `/professors/batch/${batchId}/course/${courseId}/materials`,
         method: "GET",
       }),
     }),
@@ -76,4 +83,5 @@ export const {
   useGetAllMaterialsQuery,
   useDeleteMaterialsMutation,
   useGetMaterialsByCourseIdQuery,
+  useGetCourseByBatchIdQuery,
 } = professorApi;

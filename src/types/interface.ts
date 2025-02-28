@@ -40,6 +40,7 @@ export interface Course {
   course_image: string;
   professor_id: number;
   status: string;
+  total_materials: number;
   created_at: string;
   updated_at: string;
 }
@@ -104,7 +105,6 @@ export type Result = {
   results: any[];
 };
 
-
 export type Material = {
   id: number;
   batch_id: number;
@@ -135,4 +135,3 @@ export type Material = {
   materials: Material[];
   professor: Professor;
 };
-

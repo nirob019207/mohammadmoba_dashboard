@@ -81,12 +81,7 @@ const navigation = [
     icon: <BookMarkedIcon className="text-3xl" />,
     roles: ["student"],
   },
-  {
-    label: "Batches",
-    route: "/professor-batches",
-    icon: <BookMarkedIcon className="text-3xl" />,
-    roles: ["professor"],
-  },
+
   {
     label: "Materials",
     route: "/professor-materials",
@@ -94,9 +89,9 @@ const navigation = [
     roles: ["professor"],
   },
   {
-    label: "Batches Student",
+    label: "Batch Students",
     route: "/professor-batches-student",
-    icon: <BookMarkedIcon className="text-3xl" />,
+    icon: <PiStudentBold className="text-3xl" />,
     roles: ["professor"],
   },
   {

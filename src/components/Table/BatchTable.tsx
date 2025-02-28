@@ -23,7 +23,7 @@ const BatchTable: React.FC<BatchType> = ({ batch, isLoading, serial }) => {
   const totalPages = Math.ceil(batch?.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedData = batch?.slice(startIndex, startIndex + itemsPerPage);
-  console.log(batch);
+
   const confirmDelete = async () => {
     if (batchToDelete) {
       try {

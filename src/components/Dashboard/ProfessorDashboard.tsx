@@ -5,12 +5,13 @@ import Image from "next/image";
 import { GiReceiveMoney } from "react-icons/gi";
 import { PiMoneyWavyLight } from "react-icons/pi";
 import { PiBookOpenUserFill } from "react-icons/pi";
-import courseImage from "@/assests/courseImage.png";
 import { TProfessorDashboard } from "@/types/professorInterface";
+import ProfessorBatchCard from "./ProfessorBatchCard";
 
 export default function ProfessorDashboard() {
   const { data } = useGetProfessorDashboardQuery(undefined);
   const professorStats: TProfessorDashboard = data?.data;
+  const professorBatches: Batch[] = data?.data?.batches || [];
 
   return (
     <div>
@@ -62,21 +63,8 @@ export default function ProfessorDashboard() {
       </div>
 
       {/* Batch section */}
-      <h2 className="text-3xl">My Batches</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {/* TODO: Replace  professorStats.batches */}
-        {new Array(8).fill(undefined).map((item: Batch, index: number) => (
-          <div key={index}>
-            <div className="relative  rounded-lg">
-              {/* TODO: Replace the image url static to dynamic */}
-              <Image src={courseImage} alt="Course Image" className="w-full" />
-              <h1 className="text-4xl absolute right-0 bottom-0 py-1 px-4 rounded-full bg-white/20 backdrop-blur-md text-white z-10">
-                {index + 1}
-              </h1>
-            </div>
-          </div>
-        ))}
-      </div>
+      <h2 className="text-3xl mt-12 mb-6 font-semibold">My Batches</h2>
+      <ProfessorBatchCard batches={professorBatches} />
     </div>
   );
 }

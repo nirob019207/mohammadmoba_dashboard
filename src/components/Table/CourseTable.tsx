@@ -53,7 +53,7 @@ const CourseTable: React.FC<CourseType> = ({ course, isLoading, serial }) => {
                   Name
                 </th>
                 <th className="p-4 text-left text-sm font-medium text-gray-700">
-                  Descripiton
+                  Description
                 </th>
 
                 <th className="p-4 text-left text-sm font-medium text-gray-700">
