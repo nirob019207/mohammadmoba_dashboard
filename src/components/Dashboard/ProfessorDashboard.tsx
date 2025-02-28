@@ -11,7 +11,6 @@ import ProfessorBatchCard from "./ProfessorBatchCard";
 export default function ProfessorDashboard() {
   const { data } = useGetProfessorDashboardQuery(undefined);
   const professorStats: TProfessorDashboard = data?.data;
-  const professorBatches: Batch[] = data?.data?.batches || [];
 
   return (
     <div>
@@ -64,7 +63,7 @@ export default function ProfessorDashboard() {
 
       {/* Batch section */}
       <h2 className="text-3xl mt-12 mb-6 font-semibold">My Batches</h2>
-      <ProfessorBatchCard batches={professorBatches} />
+      <ProfessorBatchCard redirectTo="professor-batches-student" />
     </div>
   );
 }
