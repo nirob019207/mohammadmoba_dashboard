@@ -1,13 +1,13 @@
 "use client";
-import { useGetmatQuery } from "@/Redux/Api/mycourse/mycourseApi";
+import { useGetmatQuery, useGetstudentsCourseQuery } from "@/Redux/Api/mycourse/mycourseApi";
 import { PlayCircle, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function MyCourse() {
-  const { data } = useGetmatQuery({});
+  const { data } = useGetstudentsCourseQuery({});
 
-  const mycourseData = data?.courses;
+  const mycourseData = data?.data.course
 
   if (!mycourseData || mycourseData.length === 0) {
     return (
@@ -22,8 +22,8 @@ export default function MyCourse() {
     <div className=" mx-auto p-6">
       <h2 className="mb-6 text-2xl font-semibold text-gray-800">My Course</h2>
 
-      {mycourseData.map((course: any) => (
-        <Link href="/studentMaterial" key={course.id}>
+      {mycourseData?.map((course: any) => (
+        <Link href={`/mycourse/${course?.id}`} key={course.id}>
           <div
             key={course.id}
             className="overflow-hidden rounded-lg bg-white border border-gray-200 shadow-md hover:shadow-lg transition-shadow mb-6"
@@ -49,16 +49,13 @@ export default function MyCourse() {
                 <h3 className="text-xl font-semibold text-gray-900">
                   {course.name}
                 </h3>
-                <p className="text-sm text-gray-600 mt-1">
-                  By {course.professor?.first_name}{" "}
-                  {course.professor?.last_name}
-                </p>
+               
 
                 <div className="mt-3 flex items-center gap-6 text-sm text-gray-700">
                   <div className="flex items-center gap-1">
                     <PlayCircle className="h-5 w-5 text-blue-500" />
                     <span className="font-medium">
-                      {course.materials?.length} Videos
+                      {course.total_materials} Videos
                     </span>
                   </div>
                   <div className="flex items-center gap-1">

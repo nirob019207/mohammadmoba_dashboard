@@ -1,12 +1,16 @@
 "use client"
 import { useGetmatQuery } from "@/Redux/Api/mycourse/mycourseApi";
 import StuMaterialTable from "../Table/student/StuMaterialTable";
+import { useGetCourseQuery } from "@/Redux/Api/course/courseApi";
+import { useParams } from "next/navigation";
 
 const CourseMaterial = () => {
-  const { data, isLoading } = useGetmatQuery({});
+  const params=useParams()
+  
+  const { data, isLoading } = useGetmatQuery(params.id);
 
   // Flatten the materials from all courses
-  const flattenedMaterials = data?.courses?.flatMap((course:any) => course.materials) || [];
+const mat=data?.data?.materials
 
   return (
     <div className="pl-3">
@@ -19,7 +23,7 @@ const CourseMaterial = () => {
 
       <div className="flex justify-between mb-5">
         <div className="w-full">
-          <StuMaterialTable material={flattenedMaterials} isLoading={isLoading} serial={1} />
+          <StuMaterialTable material={mat} isLoading={isLoading} serial={1} />
         </div>
       </div>
     </div>

@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import { ChevronLeft, ChevronRight, PlayCircle } from "lucide-react";
 import { Material } from "@/types/interface";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 
 interface CourseType {
   material: Material[];
@@ -15,6 +17,8 @@ const StuMaterialTable: React.FC<CourseType> = ({ material, isLoading, serial })
   const totalPages = Math.ceil(material?.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedData = material?.slice(startIndex, startIndex + itemsPerPage);
+  const params=useParams()
+  const id=params.id
 
   return (
     <div className="overflow-x-auto rounded-lg">
@@ -42,10 +46,10 @@ const StuMaterialTable: React.FC<CourseType> = ({ material, isLoading, serial })
                   <td className="p-4 text-sm text-gray-700">{item.total_time}</td>
                   <td className="p-4 text-sm text-gray-700">{item.date}</td>
                   <td className="p-4 text-sm text-gray-700">
-                    <button className="flex items-center gap-1 text-blue-600 hover:text-blue-800">
+                    <Link href={`${id}/${item?.id}`} className="flex items-center gap-1 text-blue-600 hover:text-blue-800">
                       <PlayCircle className="h-4 w-4" />
                       View
-                    </button>
+                    </Link>
                   </td>
                 </tr>
               ))}
